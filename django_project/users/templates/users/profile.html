@@ -2,5 +2,17 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <legend>{{ user.username }}</legend>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="{{ user.profile.image.url }}" alt="AccountImg" class="img-thumbnail">
+                </div>
+                <div class="col-md-9">
+                    <h2 class="card-title">{{ user.username }}</h2>
+                    <p class="card-text">{{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
