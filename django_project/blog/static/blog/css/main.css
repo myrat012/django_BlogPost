@@ -12,7 +12,8 @@
         font-size: 3.5rem;
     }
 }
-body {
-    min-height: 75rem;
-    padding-top: 4.5rem;
+img.userimg{
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
 }

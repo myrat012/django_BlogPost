@@ -7,6 +7,7 @@
 
     <!-- Bootstrap css  -->
     <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/main.css' %}">
 
     {% if title %}
         <title>Django Blog - {{ title }}</title>
@@ -28,6 +29,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'blog-about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'post-create' %}">Add New Post</a>
                     </li>
                 </ul>
 
