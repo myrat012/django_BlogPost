@@ -1,5 +1,6 @@
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
 from .models import Post
@@ -15,9 +16,21 @@ def home(request):
 
 class PostListView(ListView):
     model = Post
-    template_name = "blog/home.html"    #shuny yazmasan shablondan gozleyar
+    template_name = "blog/home.html"  #shuny yazmasan shablondan gozleyar
     context_object_name = 'k_post'
-    ordering = ['-date_posted'] #sorting
+    ordering = ['-date_posted']  #sorting
+    paginate_by = 5  #for number under posts 
+
+class UserPostListView(ListView):
+    model = Post
+    template_name = "blog/user_posts.html"  #shuny yazmasan shablondan gozleyar
+    context_object_name = 'k_post'
+    paginate_by = 5  #for number under posts
+
+    def get_queryset(self):
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        return Post.objects.filter(author=user).order_by('-date_posted')
+
 
 class PostDetailView(DetailView):
     model = Post
@@ -43,6 +56,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == post.author:
             return True
         return False
+
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     success_url = '/'
@@ -52,5 +66,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
 def about(request):
     return render(request, "blog/about.html", {'title': 'About'})
