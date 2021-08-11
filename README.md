@@ -1,3 +1,6 @@
 # django_BlogPost
-Admin
-Testing321
+if u import new project change useremail and password in settings # for recovery password
+
+admin - Admin
+
+password - Testing321
